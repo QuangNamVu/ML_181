@@ -5,12 +5,12 @@ learning_rate = 0.1
 
 
 class Conv2D(object):
-    def __init__(self, filters=64, kernel_size=3, padding=1, stride=2):
+    def __init__(self, filters=64,num_channels = 3,  kernel_size=3, padding=1, stride=2):
         self.stride = stride
         self.pad = padding
-        w_shape = (filters, 3, kernel_size, kernel_size)
+        w_shape = (filters, num_channels, kernel_size, kernel_size)
         self.w = np.linspace(-0.2, 0.3, num=np.prod(w_shape)).reshape(w_shape)
-        self.b = np.linspace(-0.1, 0.2, num=3)
+        self.b = np.linspace(-0.1, 0.2, num= num_channels)
 
     def forward(self, input):
         out, self.cache = conv_forward_naive(input, self.w, self.b, {'stride': self.stride, 'pad': self.pad})
@@ -117,14 +117,17 @@ class Model(object):
 def main():
     # X = np.random.randn(100, 3, 32, 32) * 100
 
-    X = np.random.randn(100, 3, 32, 32)
+    # X = np.random.randn(100, 3, 32, 32)
+
+    X = np.random.randn(100, 1, 28, 28)
+
 
     y = np.random.choice(9, 100)
 
     model = Model()
 
     # Conv
-    model.add(Conv2D(filters=1, kernel_size=2, stride=2, padding=1))
+    model.add(Conv2D(filters=1, num_channels=1, kernel_size=2, stride=2, padding=1))
 
     # ReLU
     model.add(ReLU())
@@ -139,7 +142,7 @@ def main():
     model.add(ReLU())
 
     # FC
-    model.add(FullyConnected(hidden_dim=256, num_classes=10))
+    model.add(FullyConnected(hidden_dim=196, num_classes=10))
 
     model.fit(X, y, 100)
 

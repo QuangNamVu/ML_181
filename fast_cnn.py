@@ -113,16 +113,18 @@ class Model(object):
 
 
 def main():
+    # X = np.random.randn(100, 3, 32, 32)
+
     X = np.random.randn(100, 3, 32, 32)
 
-    # X = np.random.randn(100, 1, 28, 28)
+    #X = np.random.randn(100, 1, 28, 28)
 
     y = np.random.choice(9, 100)
 
     model = Model()
 
     # Conv
-    model.add(Conv2D(filters=3, in_channel=3, kernel_size=4, stride=2, padding=1))
+    model.add(Conv2D(filters=3, in_channel=3, kernel_size=3, stride=2, padding=1))
 
     # ReLU
     model.add(ReLU())
