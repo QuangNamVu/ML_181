@@ -6,12 +6,12 @@ learning_rate = 0.1
 
 
 class Conv2D(object):
-    def __init__(self, filters=64, in_channel=3, kernel_size=3, padding=1, stride=2):
+    def __init__(self, filters=64, num_channel=3, kernel_size=3, padding=1, stride=2):
         self.stride = stride
         self.pad = padding
-        w_shape = (filters, in_channel, kernel_size, kernel_size)
+        w_shape = (filters, num_channel, kernel_size, kernel_size)
         self.w = np.linspace(-0.2, 0.3, num=np.prod(w_shape)).reshape(w_shape)
-        self.b = np.linspace(-0.1, 0.2, num=3)
+        self.b = np.linspace(-0.1, 0.2, num=num_channel)
 
     def forward(self, input):
         out, self.cache = conv_fast_forward(input, self.w, self.b, {'stride': self.stride, 'pad': self.pad})
@@ -124,7 +124,8 @@ def main():
     model = Model()
 
     # Conv
-    model.add(Conv2D(filters=3, in_channel=3, kernel_size=3, stride=2, padding=1))
+    model.add(Conv2D(filters=1, num_channels=3, kernel_size=2, stride=2, padding=1))
+
 
     # ReLU
     model.add(ReLU())
