@@ -26,12 +26,15 @@ def init_list_tables(data_frame, target_name):
 
         list_table_count[each_attribute_name][:] = 0
 
-    return list_table_count
+    return decisions_count, list_table_count
 
 
 def update_list_tables(data_frame, target_name):
 
-    list_table_count = init_list_tables(data_frame, target_name)
+    decisions_count, list_table_count = init_list_tables(data_frame, target_name)
+
+
+
     att_name_list = data_frame.columns.tolist()
 
     att_name_list.remove(target_name)
@@ -42,4 +45,4 @@ def update_list_tables(data_frame, target_name):
             list_table_count[each_attribute_name].at[
                 each_observation[each_attribute_name], each_observation[target_name]] += 1
 
-    return list_table_count
+    return decisions_count, list_table_count
