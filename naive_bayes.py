@@ -45,13 +45,15 @@ def update_list_tables(data_frame, att_name_list, target_name):
 
     for each_attribute_name in att_name_list:
         for _, each_observation in pd.DataFrame(data_frame, columns=[each_attribute_name, target_name]).iterrows():
+	    v = list_table_count[each_attribute_name].at[each_observation[each_attribute_name], each_observation[target_name]]
+
             list_table_count[each_attribute_name].at[
-                each_observation[each_attribute_name], each_observation[target_name]] += 1
+                each_observation[each_attribute_name], each_observation[target_name]] = v + 1
 
-        return list_table_count
+    return list_table_count
 
 
-att_name_list = ["Alt", "Bar", "Fri", "Hun", "Pat", "Price", "Rain", "Res", "Type", "Est"]
+att_name_list = ["Alt", "Bar", "Fri", "Hun", "Pat", "Price", "Rain", "Res", "Type", "Est", "Wait"]
 
 list_table_count = update_list_tables(data_frame=df, att_name_list=att_name_list, target_name="Wait")
 
